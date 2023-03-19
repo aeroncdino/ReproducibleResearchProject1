@@ -103,17 +103,17 @@ The second histogram has a higher frequency than the first. This is due to the i
 library(dplyr)
 
 activity_Weekend <- activity %>%
-  mutate( is_Weekened = ifelse(weekdays(date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
+  mutate( is_Weekend = ifelse(weekdays(date) %in% c("Saturday", "Sunday"), "Weekend", "Weekday"))
  
 library(ggplot2)
 library(dplyr)
 
 avg_steps <- activity_Weekend %>%
-  group_by(interval, is_Weekened) %>%
+  group_by(interval, is_Weekend) %>%
   summarise(mean_steps = mean(steps, na.rm = TRUE))
 ggplot(avg_steps, aes(x = interval, y = mean_steps)) +
   geom_line() +
-  facet_wrap(~is_Weekened, ncol = 1) +
+  facet_wrap(~is_Weekend, ncol = 1) +
   xlab("5-Minute Interval") +
   ylab("Average Number of Steps") +
   ggtitle("Average Number of Steps Taken by Interval and Day Type")
