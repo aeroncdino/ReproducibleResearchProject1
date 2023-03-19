@@ -56,7 +56,8 @@ Calculate and report the total number of missing values in the dataset (i.e. the
       totalNA<-sum(rowSums(is.na(activity)) > 0)
       cat("The total number of missing values is", totalNA)
 ```
-Devise a strategy for filling in all of the missing values in the dataset.
+
+## Creating new data set with imputed missing values.
 
 ```{r, echo=TRUE}
 # Imputing NA
@@ -82,7 +83,7 @@ imputed <- activity %>%
 
 ```
 
-# Comparison of Two Histogram:
+## Comparison of Two Histogram:
 ```{r, echo=TRUE}
 
 par(mfrow = c(1, 2))
@@ -93,3 +94,29 @@ par(mfrow = c(1, 2))
        mtext("Histograms of Total Number of Steps Taken per Day, Without/With Imputed Values",
       adj=0.95, family="serif", font=2)
 ```
+The second histogram has a higher frequency than the first. This is due to the imputation of missing values.
+
+## Are there differences in activity patterns between weekdays and weekends?
+
+```{r, echo=TRUE}
+# Creating new factor variables
+library(dplyr)
+
+activity_Weekend <- activity %>%
+  mutate( is_Weekened = ifelse(weekdays(date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
+ 
+library(ggplot2)
+library(dplyr)
+
+avg_steps <- activity_Weekend %>%
+  group_by(interval, is_Weekened) %>%
+  summarise(mean_steps = mean(steps, na.rm = TRUE))
+ggplot(avg_steps, aes(x = interval, y = mean_steps)) +
+  geom_line() +
+  facet_wrap(~is_Weekened, ncol = 1) +
+  xlab("5-Minute Interval") +
+  ylab("Average Number of Steps") +
+  ggtitle("Average Number of Steps Taken by Interval and Day Type")
+
+```
+
