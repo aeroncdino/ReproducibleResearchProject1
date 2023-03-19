@@ -13,11 +13,33 @@ unzip("activity.zip", exdir = "c:/Users/Aeron/Desktop/Data Science/ReproducibleR
 
 ```
 
-## Read the csv file.
+## Loading and preprocessing the data.
 
 ```{r, echo=TRUE}
-amd <- read.csv("activity.csv", header = FALSE)
-head(amd)
-dim(amd)
+activity <- read.csv("activity.csv", colClasses=c("numeric", "Date", "numeric"))
+dim(activity)
+str(activity)
+head(activity)
+
+
 ```
+## What is mean total number of steps taken per day?
+```{r, echo=TRUE}
+cleandata<-activity[!(is.na(activity$steps)), ]
+totalStepsDay <- aggregate(steps ~ date, cleandata, sum)
+totalStepsDay
+
+hist(totalStepsDay$steps, breaks=20, xlab="Number of Steps Taken", 
+     main="Histogram of the Total Number of Steps Taken per Day", family="serif")
+
+mean_steps_per_day <- mean(totalStepsDay$steps)
+
+median_steps_per_day <- median(totalStepsDay$steps)
+
+# Print the mean and median
+cat("Mean of total number of steps per day:", mean_steps_per_day, "\n")
+cat("Median of total number of steps per day:", median_steps_per_day, "\n")
+
+```
+
 
