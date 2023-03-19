@@ -1,0 +1,23 @@
+---
+title: "Reproducible Research Project 1 (Activity Monitoring Data)"
+author: "Aeron Chester Dino"
+date: "2023-03-19"
+output: html_document
+---
+
+## This is the code for initialization, downloading and unzipping of data set.
+```{r, echo=TRUE}
+setwd("c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
+download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile = "activity.zip")
+unzip("activity.zip", exdir = "c:/Users/Aeron/Desktop/Data Science/ReproducibleResearchProject1")
+
+```
+
+## Read the csv file.
+
+```{r, echo=TRUE}
+amd <- read.csv("activity.csv", header = FALSE)
+head(amd)
+dim(amd)
+```
+
