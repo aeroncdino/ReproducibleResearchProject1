@@ -82,5 +82,14 @@ imputed <- activity %>%
 
 ```
 
-# Comparison og Two Histogram
+# Comparison of Two Histogram:
+```{r, echo=TRUE}
 
+par(mfrow = c(1, 2))
+       hist(totalStepsDay$steps, breaks=20, xlab="Number of Steps Taken", family="serif", ylim=c(0,20), main="")
+       
+       hist(totalStepsDayImputed$steps_imputed, breaks=20, xlab="Number of Steps Taken",family="serif", ylim=c(0,20), main="")
+       
+       mtext("Histograms of Total Number of Steps Taken per Day, Without/With Imputed Values",
+      adj=0.95, family="serif", font=2)
+```
